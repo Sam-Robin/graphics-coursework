@@ -30,6 +30,8 @@ import GraphicsLab.*;
  */
 public class CS2150Coursework extends GraphicsLab
 {
+	private float rotx, roty, rotz;
+	
     //TODO: Feel free to change the window title and default animation scale here
     public static void main(String args[])
     {   new CS2150Coursework().run(WINDOWED,"CS2150 Coursework Submission",0.01f);
@@ -37,9 +39,27 @@ public class CS2150Coursework extends GraphicsLab
 
     protected void initScene() throws Exception
     {//TODO: Initialise your resources here - might well call other methods you write.
+    	//global ambient light level
+    	float globalAmbient[] = {0.2f, 0.2f, 0.2f ,1.0f};
+    	//set global ambient lighting
+    	GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, FloatBuffer.wrap(globalAmbient));
+    	//enable lighting calculations
+    	GL11.glEnable(GL11.GL_LIGHTING);
+    	//ensure normals are correct
+    	GL11.glEnable(GL11.GL_NORMALIZE);
     }
     protected void checkSceneInput()
     {//TODO: Check for keyboard and mouse input here
+    	// Rotate the camera around the x axis
+    	if(Keyboard.isKeyDown(Keyboard.KEY_X)) {
+    		rotx += getAnimationScale();
+    	}
+    	if(Keyboard.isKeyDown(Keyboard.KEY_Y)) {
+    		roty += getAnimationScale();
+    	}
+    	if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {
+    		rotz += getAnimationScale();
+    	}
     }
     protected void updateScene()
     {
@@ -69,13 +89,27 @@ public class CS2150Coursework extends GraphicsLab
         GL11.glPopMatrix();
         */
     	
-        // position and draw car
-        GL11.glPushMatrix();
-        {
-	        GL11.glTranslatef(0.0f, 1.0f, -2.0f);
-	        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
-        }
-        GL11.glPopMatrix();
+    	GL11.glPushMatrix(); 
+    	{
+    		GL11.glRotatef(rotx, 1, 0, 0);
+		
+    		GL11.glPushMatrix(); 
+    		{
+    			GL11.glRotatef(roty, 0, 1, 0);
+    			
+    			GL11.glPushMatrix();
+    			{
+    				GL11.glRotatef(rotz, 0, 0, 1);
+    				
+    				// position and draw car
+    				GL11.glTranslatef(0.0f, 1.0f, -2.0f);
+    		        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
+    			} 
+    			GL11.glPopMatrix();
+    		}
+    		GL11.glPopMatrix();
+    	}
+    	GL11.glPopMatrix();
     }
     protected void setSceneCamera()
     {
@@ -85,8 +119,8 @@ public class CS2150Coursework extends GraphicsLab
 
         //TODO: If it is appropriate for your scene, modify the camera's position and orientation here
         //        using a call to GL11.gluLookAt(...)
-        GLU.gluLookAt(0.0f, 15.0f, 15.0f,   // viewer location        
-  		      0.0f, 0.0f, 0.0f,    // view point location
+        GLU.gluLookAt(2.0f, 15.0f, 15.0f,   // viewer location        
+  		      2.0f, 1.0f, -5.0f,    // view point location
   		      0.0f, 1.0f, 0.0f);   // view-up vector
    }
 
@@ -247,8 +281,6 @@ public class CS2150Coursework extends GraphicsLab
         window.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
-        	
-        	
         	v11.submit();
         	v9.submit();
         	v7.submit();

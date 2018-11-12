@@ -24,6 +24,7 @@ import GraphicsLab.*;
  * <li>Hold the x, y and z keys to view the scene along the x, y and z axis, respectively
  * <li>While viewing the scene along the x, y or z axis, use the up and down cursor keys
  *      to increase or decrease the viewpoint's distance from the scene origin
+ * <li>Hold w, s, a, d to move the car forwards, backwards, left and right repsectively
  * </ul>
  * TODO: Add any additional controls for your sample to the list above
  *
@@ -108,27 +109,46 @@ public class CS2150Coursework extends GraphicsLab
         GL11.glPopMatrix();
         */
     	
+    	// global ambient light level
+        float globalAmbient[]   = {0.2f,  0.2f,  0.2f, 1f};
+        // set the global ambient lighting
+        GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, FloatBuffer.wrap(globalAmbient));
+        
+        // the first light for the scene is white...
+        float diffuse0[]  = { 0.6f,  0.6f, 0.6f, 1.0f};
+        // ...with a dim ambient contribution...
+        float ambient0[]  = { 0.1f,  0.1f, 0.1f, 1.0f};
+        // ...and is positioned above and behind the viewpoint
+        float position0[] = { 0.0f, 10.0f, 5.0f, 1.0f}; 
+
+        // supply OpenGL with the properties for the first light
+        GL11.glLight(GL11.GL_LIGHT0, GL11.GL_AMBIENT, FloatBuffer.wrap(ambient0));
+        GL11.glLight(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, FloatBuffer.wrap(diffuse0));
+  		GL11.glLight(GL11.GL_LIGHT0, GL11.GL_SPECULAR, FloatBuffer.wrap(diffuse0));
+        GL11.glLight(GL11.GL_LIGHT0, GL11.GL_POSITION, FloatBuffer.wrap(position0));
+        // enable the first light
+        GL11.glEnable(GL11.GL_LIGHT0);
+        
+    	// How shiny the car is
+    	float carShininess = 10.0f;
+    	// Specular reflection of the car
+    	float carSpecular[] = {0.1f, 0.0f, 0.0f, 1.0f};
+    	// Diffuse reflection of the car
+    	float carDiffuse[] = {0.6f, 0.2f, 0.2f, 1.0f};
+    	
+    	// Set material properties for the car
+    	GL11.glMaterialf(GL11.GL_FRONT, GL11.GL_SHININESS, carShininess);
+    	GL11.glMaterial(GL11.GL_FRONT, GL11.GL_SPECULAR, FloatBuffer.wrap(carSpecular));
+    	GL11.glMaterial(GL11.GL_FRONT, GL11.GL_DIFFUSE, FloatBuffer.wrap(carDiffuse));
+    	GL11.glMaterial(GL11.GL_FRONT, GL11.GL_AMBIENT, FloatBuffer.wrap(carDiffuse));
+    	
     	GL11.glPushMatrix(); 
     	{
-    		GL11.glRotatef(rotx, 1, 0, 0);
-		
-    		GL11.glPushMatrix(); 
-    		{
-    			GL11.glRotatef(roty, 0, 1, 0);
-    			
-    			GL11.glPushMatrix();
-    			{
-    				GL11.glRotatef(rotz, 0, 0, 1);
-    				
-    				// position and draw car
-    				GL11.glTranslatef(0.0f + dx, 1.0f, -2.0f + dz);
-    		        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
-    			} 
-    			GL11.glPopMatrix();
-    		}
-    		GL11.glPopMatrix();
-    	}
-    	GL11.glPopMatrix();
+			// position and draw car
+			GL11.glTranslatef(0.0f + dx, 1.0f, -2.0f + dz);
+	        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
+		} 
+		GL11.glPopMatrix();
     }
     protected void setSceneCamera()
     {
@@ -138,7 +158,7 @@ public class CS2150Coursework extends GraphicsLab
 
         //TODO: If it is appropriate for your scene, modify the camera's position and orientation here
         //        using a call to GL11.gluLookAt(...)
-        GLU.gluLookAt(2.0f, 15.0f, 15.0f,   // viewer location        
+        GLU.gluLookAt(2.0f + rotx, 15.0f + roty, 15.0f + rotz,   // viewer location        
   		      2.0f, 1.0f, -5.0f,    // view point location
   		      0.0f, 1.0f, 0.0f);   // view-up vector
    }

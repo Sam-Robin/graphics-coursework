@@ -51,6 +51,7 @@ public class CS2150Coursework extends GraphicsLab
     {//TODO: Render your scene here - remember that a scene graph will help you write this method! 
      //      It will probably call a number of other methods you will write.
     	
+    	/**
     	// position and draw the first rectangle
         GL11.glPushMatrix();
         {
@@ -59,19 +60,20 @@ public class CS2150Coursework extends GraphicsLab
         }
         GL11.glPopMatrix();
         
-     // position and draw car
-        GL11.glPushMatrix();
-        {
-	        GL11.glTranslatef(0.0f, 1.0f, -2.0f);
-	        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
-        }
-        GL11.glPopMatrix();
-        
-     // position and draw the second rectangle
+        // position and draw the second rectangle
         GL11.glPushMatrix();
         {
 	        GL11.glTranslatef(6.0f, -1.0f, -2.0f);
 	        drawRectangle(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
+        }
+        GL11.glPopMatrix();
+        */
+    	
+        // position and draw car
+        GL11.glPushMatrix();
+        {
+	        GL11.glTranslatef(0.0f, 1.0f, -2.0f);
+	        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
         }
         GL11.glPopMatrix();
     }
@@ -83,7 +85,7 @@ public class CS2150Coursework extends GraphicsLab
 
         //TODO: If it is appropriate for your scene, modify the camera's position and orientation here
         //        using a call to GL11.gluLookAt(...)
-        GLU.gluLookAt(1.0f, 5.0f, 10.0f,   // viewer location        
+        GLU.gluLookAt(0.0f, 15.0f, 15.0f,   // viewer location        
   		      0.0f, 0.0f, 0.0f,    // view point location
   		      0.0f, 1.0f, 0.0f);   // view-up vector
    }
@@ -204,7 +206,7 @@ public class CS2150Coursework extends GraphicsLab
         Vertex v11 = new Vertex(4.0f,  2.0f,  0.0f);
         Vertex v12 = new Vertex(4.0f,  0.0f,  0.0f);
         
-     // draw the front face:
+        // draw the front face:
         front.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
@@ -215,7 +217,7 @@ public class CS2150Coursework extends GraphicsLab
         }
         GL11.glEnd();
         
-     // draw the left side face:
+        // draw the left side face:
         side.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
@@ -227,33 +229,75 @@ public class CS2150Coursework extends GraphicsLab
         	v10.submit();
         }
         GL11.glEnd();
-        /**
-     // draw the right side face:
+        
+        // draw the right side face:
         side.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
         	v11.submit();
-        	v8.submit();
-        	v6.submit();
-        	v4.submit();
-        	v2.submit();
         	v12.submit();
+        	v2.submit();
+        	v4.submit();
+        	v6.submit();
+        	v8.submit();
         }
         GL11.glEnd();
-        */
         
-     // draw the front window face:
-        front.submit();
+        // draw the front window face:
+        window.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
+        	
+        	
+        	v11.submit();
         	v9.submit();
         	v7.submit();
         	v8.submit();
-        	v11.submit();
         }
-     // draw the rear window face face:
-     // draw the rear face:
-     // draw the top face:
-     // draw the bottom face:
+        GL11.glEnd();
+        
+	    // draw the rear window face:
+        window.submit();
+        GL11.glBegin(GL11.GL_POLYGON);
+        {
+        	v6.submit();
+        	v5.submit();
+        	v3.submit();
+        	v4.submit();
+        }
+        GL11.glEnd();
+        
+	    // draw the rear face:
+        back.submit();
+        GL11.glBegin(GL11.GL_POLYGON);
+        {
+        	v4.submit();
+        	v3.submit();
+        	v1.submit();
+        	v2.submit();
+        }
+        GL11.glEnd();
+        
+	    // draw the top face:
+        top.submit();
+        GL11.glBegin(GL11.GL_POLYGON);
+        {
+        	v8.submit();
+        	v7.submit();
+        	v5.submit();
+        	v6.submit();
+        }
+        GL11.glEnd();
+        
+	    // draw the bottom face:
+        bottom.submit();
+        GL11.glBegin(GL11.GL_POLYGON);
+        {
+        	v2.submit();
+        	v1.submit();
+        	v10.submit();
+        	v12.submit();
+        }
+        GL11.glEnd();
     }
 }

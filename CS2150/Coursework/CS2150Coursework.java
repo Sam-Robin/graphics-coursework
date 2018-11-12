@@ -31,6 +31,7 @@ import GraphicsLab.*;
 public class CS2150Coursework extends GraphicsLab
 {
 	private float rotx, roty, rotz;
+	private float dx, dz;
 	
     //TODO: Feel free to change the window title and default animation scale here
     public static void main(String args[])
@@ -54,11 +55,29 @@ public class CS2150Coursework extends GraphicsLab
     	if(Keyboard.isKeyDown(Keyboard.KEY_X)) {
     		rotx += getAnimationScale();
     	}
+    	// Rotate the camera around the y axis
     	if(Keyboard.isKeyDown(Keyboard.KEY_Y)) {
     		roty += getAnimationScale();
     	}
+    	// Rotate the camera around the z axis
     	if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {
     		rotz += getAnimationScale();
+    	}
+    	// Move the car forward
+    	if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
+    		dz -= 0.001f;
+    	}
+    	// Move the car back
+    	if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+    		dz += 0.001f;
+    	}
+    	// Move the car left
+    	if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+    		dx -= 0.001f;
+    	}
+    	// Move the car right
+    	if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
+    		dx += 0.001f;
     	}
     }
     protected void updateScene()
@@ -102,7 +121,7 @@ public class CS2150Coursework extends GraphicsLab
     				GL11.glRotatef(rotz, 0, 0, 1);
     				
     				// position and draw car
-    				GL11.glTranslatef(0.0f, 1.0f, -2.0f);
+    				GL11.glTranslatef(0.0f + dx, 1.0f, -2.0f + dz);
     		        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
     			} 
     			GL11.glPopMatrix();

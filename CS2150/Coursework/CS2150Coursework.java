@@ -152,9 +152,12 @@ public class CS2150Coursework extends GraphicsLab
 		
 		GL11.glPushMatrix();
 		{
+			final float bottom = 0.0f;
 			//position and draw roads
-			GL11.glTranslatef(0.0f, -1.0f, -2.0f);
-			
+			for (float f = 0.0f; f < 100.0f; f += 10.0f) {
+				GL11.glTranslatef(0.0f, bottom, -f);
+				drawRoad(Colour.BLUE);
+			}
 		}
     }
     protected void setSceneCamera()
@@ -174,98 +177,20 @@ public class CS2150Coursework extends GraphicsLab
     {//TODO: Clean up your resources here
     }
     
-    private void drawRectangle(Colour top, Colour bottom, Colour left, Colour right, Colour near, Colour far) {
+    private void drawRoad(Colour top) {
     	//The vertices of the rectangle
-    	Vertex v1 = new Vertex( 0.0f,  1.0f,  10.0f);
-        Vertex v2 = new Vertex( 0.0f,  0.0f,  2.0f);
-        Vertex v3 = new Vertex( 1.0f,  1.0f,  10.0f);
-        Vertex v4 = new Vertex( 0.5f, -0.5f,  2.0f);
-        Vertex v5 = new Vertex(-0.5f, -0.5f, -0.5f);
-        Vertex v6 = new Vertex(-0.5f,  0.5f, -0.5f);
-        Vertex v7 = new Vertex( 0.5f,  0.5f, -0.5f);
-        Vertex v8 = new Vertex( 0.5f, -0.5f, -0.5f);
+    	Vertex v1 = new Vertex( 0.0f,   0.0f,  20.0f);
+        Vertex v2 = new Vertex( 0.0f,   0.0f,  0.0f);
+        Vertex v3 = new Vertex( 10.0f,  0.0f,  0.0f);
+        Vertex v4 = new Vertex( 10.0f,  0.0f,  20.0f);
     	
-        // draw the near face:
-        near.submit();
-        GL11.glBegin(GL11.GL_POLYGON);
-        {
-            v3.submit();
-            v2.submit();
-            v1.submit();
-            v4.submit();
-        }
-        GL11.glEnd();
-
-        // draw the left face:
-        left.submit();
-        GL11.glBegin(GL11.GL_POLYGON);
-        {
-        	v2.submit();
-            v6.submit();
-            v5.submit();
-            v1.submit();
-        }
-        GL11.glEnd();
-
-        // draw the right face:
-        right.submit();
-        GL11.glBegin(GL11.GL_POLYGON);
-        {
-            v7.submit();
-            v3.submit();
-            v4.submit();
-            v8.submit();
-        }
-        GL11.glEnd();
-
         // draw the top face:
         top.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
-            v7.submit();
-            v6.submit();
-            v2.submit();
-            v3.submit();
-        }
-        GL11.glEnd();
-
-        // draw the bottom face:
-       	bottom.submit();
-        GL11.glBegin(GL11.GL_POLYGON);
-        {
-            v4.submit();
-            v1.submit();
-            v5.submit();
-            v8.submit();
-        }
-        GL11.glEnd();
-
-        // draw the far face:
-        far.submit();
-        GL11.glBegin(GL11.GL_POLYGON);
-        {
-            v6.submit();
-            v7.submit();
-            v8.submit();
-            v5.submit();
-        }
-        GL11.glEnd();
-    }
-    
-    private void drawPlane(Colour c) {
-    	//The vertices of the plane
-    	Vertex v1 = new Vertex(-0.5f, -0.5f,  2.0f);
-        Vertex v2 = new Vertex(-0.5f, -0.5f, -0.5f);
-        Vertex v3 = new Vertex( 0.5f, -0.5f, -0.5f);
-        Vertex v4 = new Vertex( 0.5f, -0.5f,  2.0f);
-        
-        // draw the face:
-        c.submit();
-        GL11.glBegin(GL11.GL_POLYGON);
-        {
-            v4.submit();
-            v2.submit();
-            v3.submit();
+        	v4.submit();
+        	v3.submit();
+        	v2.submit();
             v1.submit();
         }
         GL11.glEnd();

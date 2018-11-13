@@ -149,6 +149,13 @@ public class CS2150Coursework extends GraphicsLab
 	        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
 		} 
 		GL11.glPopMatrix();
+		
+		GL11.glPushMatrix();
+		{
+			//position and draw roads
+			GL11.glTranslatef(0.0f, -1.0f, -2.0f);
+			
+		}
     }
     protected void setSceneCamera()
     {
@@ -167,11 +174,11 @@ public class CS2150Coursework extends GraphicsLab
     {//TODO: Clean up your resources here
     }
     
-    private void drawRectangle(Colour near, Colour far, Colour left, Colour right, Colour top, Colour bottom) {
+    private void drawRectangle(Colour top, Colour bottom, Colour left, Colour right, Colour near, Colour far) {
     	//The vertices of the rectangle
-    	Vertex v1 = new Vertex(-0.5f, -0.5f,  2.0f);
-        Vertex v2 = new Vertex(-0.5f,  0.5f,  2.0f);
-        Vertex v3 = new Vertex( 0.5f,  0.5f,  2.0f);
+    	Vertex v1 = new Vertex( 0.0f,  1.0f,  10.0f);
+        Vertex v2 = new Vertex( 0.0f,  0.0f,  2.0f);
+        Vertex v3 = new Vertex( 1.0f,  1.0f,  10.0f);
         Vertex v4 = new Vertex( 0.5f, -0.5f,  2.0f);
         Vertex v5 = new Vertex(-0.5f, -0.5f, -0.5f);
         Vertex v6 = new Vertex(-0.5f,  0.5f, -0.5f);

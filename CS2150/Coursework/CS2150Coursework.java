@@ -91,24 +91,6 @@ public class CS2150Coursework extends GraphicsLab
     {//TODO: Render your scene here - remember that a scene graph will help you write this method! 
      //      It will probably call a number of other methods you will write.
     	
-    	/**
-    	// position and draw the first rectangle
-        GL11.glPushMatrix();
-        {
-	        GL11.glTranslatef(0.0f, -1.0f, -2.0f);
-	        drawRectangle(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
-        }
-        GL11.glPopMatrix();
-        
-        // position and draw the second rectangle
-        GL11.glPushMatrix();
-        {
-	        GL11.glTranslatef(6.0f, -1.0f, -2.0f);
-	        drawRectangle(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
-        }
-        GL11.glPopMatrix();
-        */
-    	
     	// global ambient light level
         float globalAmbient[]   = {0.2f,  0.2f,  0.2f, 1f};
         // set the global ambient lighting
@@ -118,7 +100,7 @@ public class CS2150Coursework extends GraphicsLab
         float diffuse0[]  = { 0.6f,  0.6f, 0.6f, 1.0f};
         // ...with a dim ambient contribution...
         float ambient0[]  = { 0.1f,  0.1f, 0.1f, 1.0f};
-        // ...and is positioned above and behind the viewpoint
+        // ...and is positioned here
         float position0[] = { 0.0f, 10.0f, 5.0f, 1.0f}; 
 
         // supply OpenGL with the properties for the first light
@@ -150,11 +132,24 @@ public class CS2150Coursework extends GraphicsLab
 		} 
 		GL11.glPopMatrix();
 		
+		// How shiny the roads are
+    	float roadShininess = 2.0f;
+    	// Specular reflection of the roads
+    	float roadSpecular[] = {0.1f, 0.0f, 0.0f, 1.0f};
+    	// Diffuse reflection of the roads
+    	float roadDiffuse[] = {0.6f, 0.1f, 0.1f, 1.0f};
+    	
+    	// Set material properties for the roads
+    	GL11.glMaterialf(GL11.GL_FRONT, GL11.GL_SHININESS, roadShininess);
+    	GL11.glMaterial(GL11.GL_FRONT, GL11.GL_SPECULAR, FloatBuffer.wrap(roadSpecular));
+    	GL11.glMaterial(GL11.GL_FRONT, GL11.GL_DIFFUSE, FloatBuffer.wrap(roadDiffuse));
+    	GL11.glMaterial(GL11.GL_FRONT, GL11.GL_AMBIENT, FloatBuffer.wrap(roadDiffuse));
+    	
 		GL11.glPushMatrix();
 		{
 			final float bottom = 0.0f;
 			//position and draw roads
-			for (float f = 0.0f; f < 100.0f; f += 10.0f) {
+			for (float f = 0.0f; f < 100.0f; f = f + 7.0f) {
 				GL11.glTranslatef(0.0f, bottom, -f);
 				drawRoad(Colour.BLUE);
 			}
@@ -185,9 +180,9 @@ public class CS2150Coursework extends GraphicsLab
         Vertex v4 = new Vertex( 10.0f,  0.0f,  20.0f);
     	
         // draw the top face:
-        top.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
+        	top.submit();
         	v4.submit();
         	v3.submit();
         	v2.submit();
@@ -212,9 +207,9 @@ public class CS2150Coursework extends GraphicsLab
         Vertex v12 = new Vertex(4.0f,  0.0f,  0.0f);
         
         // draw the front face:
-        front.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
+        	front.submit();
         	v9.submit();
         	v10.submit();
         	v12.submit();
@@ -223,35 +218,34 @@ public class CS2150Coursework extends GraphicsLab
         GL11.glEnd();
         
         // draw the left side face:
-        side.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
-        	v9.submit();
-        	v7.submit();
-        	v5.submit();
-        	v3.submit();
-        	v1.submit();
+        	side.submit();
         	v10.submit();
+        	v1.submit();
+        	v3.submit();
+        	v5.submit();
+        	v7.submit();
+        	v9.submit();
         }
         GL11.glEnd();
         
         // draw the right side face:
-        side.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
-        	v11.submit();
-        	v12.submit();
-        	v2.submit();
-        	v4.submit();
-        	v6.submit();
         	v8.submit();
+        	v6.submit();
+        	v4.submit();
+        	v2.submit();
+        	v12.submit();
+        	v11.submit();
         }
         GL11.glEnd();
         
         // draw the front window face:
-        window.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
+        	window.submit();
         	v11.submit();
         	v9.submit();
         	v7.submit();
@@ -260,7 +254,6 @@ public class CS2150Coursework extends GraphicsLab
         GL11.glEnd();
         
 	    // draw the rear window face:
-        window.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
         	v6.submit();
@@ -271,9 +264,9 @@ public class CS2150Coursework extends GraphicsLab
         GL11.glEnd();
         
 	    // draw the rear face:
-        back.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
+        	back.submit();
         	v4.submit();
         	v3.submit();
         	v1.submit();
@@ -282,9 +275,9 @@ public class CS2150Coursework extends GraphicsLab
         GL11.glEnd();
         
 	    // draw the top face:
-        top.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
+        	top.submit();
         	v8.submit();
         	v7.submit();
         	v5.submit();
@@ -293,9 +286,9 @@ public class CS2150Coursework extends GraphicsLab
         GL11.glEnd();
         
 	    // draw the bottom face:
-        bottom.submit();
         GL11.glBegin(GL11.GL_POLYGON);
         {
+        	bottom.submit();
         	v2.submit();
         	v1.submit();
         	v10.submit();

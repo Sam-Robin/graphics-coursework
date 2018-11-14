@@ -33,6 +33,7 @@ public class CS2150Coursework extends GraphicsLab
 {
 	private float rotx, roty, rotz;
 	private float dx, dz;
+	private float carZ, carX, carY;
 	
     //TODO: Feel free to change the window title and default animation scale here
     public static void main(String args[])
@@ -49,6 +50,13 @@ public class CS2150Coursework extends GraphicsLab
     	GL11.glEnable(GL11.GL_LIGHTING);
     	//ensure normals are correct
     	GL11.glEnable(GL11.GL_NORMALIZE);
+    	
+    	//set car's x co-ordinate
+    	carX = 0.0f;
+    	//set car's y co-ordinate
+    	carY = 1.0f;
+    	//set car's z co-ordinate
+    	carZ = -2.0f;
     }
     protected void checkSceneInput()
     {//TODO: Check for keyboard and mouse input here
@@ -66,19 +74,19 @@ public class CS2150Coursework extends GraphicsLab
     	}
     	// Move the car forward
     	if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-    		dz -= 0.001f;
+    		carZ -= 0.001f;
     	}
     	// Move the car back
     	if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-    		dz += 0.001f;
+    		carZ += 0.001f;
     	}
     	// Move the car left
     	if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-    		dx -= 0.001f;
+    		carX -= 0.001f;
     	}
     	// Move the car right
     	if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-    		dx += 0.001f;
+    		carX += 0.001f;
     	}
     }
     protected void updateScene()
@@ -127,7 +135,7 @@ public class CS2150Coursework extends GraphicsLab
     	GL11.glPushMatrix(); 
     	{
 			// position and draw car
-			GL11.glTranslatef(0.0f + dx, 1.0f, -2.0f + dz);
+			GL11.glTranslatef(carX, carY, carZ);
 	        drawCar(Colour.BLUE,Colour.BLUE,Colour.RED,Colour.RED,Colour.GREEN,Colour.GREEN);
 		} 
 		GL11.glPopMatrix();
@@ -163,9 +171,10 @@ public class CS2150Coursework extends GraphicsLab
 
         //TODO: If it is appropriate for your scene, modify the camera's position and orientation here
         //        using a call to GL11.gluLookAt(...)
-        GLU.gluLookAt(2.0f + rotx, 15.0f + roty, 15.0f + rotz,   // viewer location        
-  		      2.0f, 1.0f, -5.0f,    // view point location
+        GLU.gluLookAt(carX + 2.0f + rotx, carY + 4.0f + roty, carZ + 20.0f + rotz,   // viewer location        
+  		      carX + 2.0f, carY + 5.0f, carZ - 20.0f,    // view point location
   		      0.0f, 1.0f, 0.0f);   // view-up vector
+        //2.0f + rotx, 15.0f + roty, 15.0f + rotz
    }
 
     protected void cleanupScene()

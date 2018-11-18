@@ -155,12 +155,9 @@ public class CS2150Coursework extends GraphicsLab
     	
 		GL11.glPushMatrix();
 		{
-			final float bottom = 0.0f;
-			//position and draw roads
-			for (float f = 0.0f; f < 100.0f; f = f + 7.0f) {
-				GL11.glTranslatef(0.0f, bottom, -f);
-				drawRoad(Colour.BLUE);
-			}
+			//position and draw road
+			GL11.glTranslatef(0.0f, 0.0f, -500.0f);
+			drawRoad(Colour.BLUE);
 		}
     }
     protected void setSceneCamera()
@@ -183,10 +180,10 @@ public class CS2150Coursework extends GraphicsLab
     
     private void drawRoad(Colour top) {
     	//The vertices of the rectangle
-    	Vertex v1 = new Vertex( 0.0f,   0.0f,  20.0f);
+    	Vertex v1 = new Vertex( 0.0f,   0.0f,  1000.0f);
         Vertex v2 = new Vertex( 0.0f,   0.0f,  0.0f);
         Vertex v3 = new Vertex( 10.0f,  0.0f,  0.0f);
-        Vertex v4 = new Vertex( 10.0f,  0.0f,  20.0f);
+        Vertex v4 = new Vertex( 10.0f,  0.0f,  1000.0f);
     	
         // draw the top face:
         GL11.glBegin(GL11.GL_POLYGON);
